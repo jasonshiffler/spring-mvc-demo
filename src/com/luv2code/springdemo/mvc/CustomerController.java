@@ -31,7 +31,7 @@ public class CustomerController {
 		
 	@RequestMapping("/showForm")
 	public String showForm(Model theModel) {
-		theModel.addAttribute("customer", new Customer());
+		theModel.addAttribute("customer", new Customer()); //create a customer object and add to the model
 		return "customer-form";
 
 	}
@@ -39,11 +39,17 @@ public class CustomerController {
 	@RequestMapping("/processForm")
 	public String processForm(@Valid @ModelAttribute("customer") Customer theCustomer, BindingResult theBindingResult) {
 
+		//Prints errors to console when form is submitted
+		System.out.println("Binding result: " + theBindingResult);
+		
+		System.out.println("\n\n\n");
+		
 		if(theBindingResult.hasErrors()){
 			return "customer-form";           //Take them back to the form to try again
 
 		}
 
+		//if it was successful print out the confirmation form 
 		return "customer-confirmation";
 
 	}
